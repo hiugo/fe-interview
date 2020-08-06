@@ -1,22 +1,116 @@
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import * as billsActions from '../../state/actions/bills'
-import * as billsSelectors from '../../state/selectors/bills'
+// Actions
+import * as billsActions from '../../state/actions/bills';
+import * as categoriesActions from '../../state/actions/categories';
+
+// Selectors
+import * as billsSelectors from '../../state/selectors/bills';
+
+// Images
+import loaderImage from '../../assets/loader.gif';
+
+// Components
+import Bill from '../Bill';
+
+import {
+	Wrapper,
+	Container,
+	TabsWrapper,
+	Tab,
+	Content,
+	LoaderImage,
+	Message,
+} from './TabsComponent.styles';
+
+const TABS = [
+	{ id: 0, text: 'Bills' },
+	{ id: 1, text: 'Potencial bills' },
+];
 
 const TabsComponent = () => {
-    const dispatch = useDispatch()
-    const data = useSelector(billsSelectors.getData)
-    console.log("hello world", data)
+	const dispatch = useDispatch();
+	const billsData = useSelector(billsSelectors.getData) || [];
+	const isLoading = useSelector(billsSelectors.getLoading);
+	const isError = useSelector(billsSelectors.getError);
 
-    useEffect(() => {
-        dispatch(billsActions.billsRequest())
-    }, [])
+	const [selectedTab, setSelectedTab] = useState(0);
 
-    return (
-        <div data-testid="tabscomponent">hello world</div>
-    )
-}
+	useEffect(() => {
+		dispatch(billsActions.billsRequest());
+		dispatch(categoriesActions.categoriesRequest());
+	}, []);
 
-export default TabsComponent
+	const billsList = billsData && billsData.filter(bill =>
+		selectedTab === 0 ? bill.isBill : !bill.isBill
+	);
+
+	return (
+		<Wrapper data-testid="tabscomponent">
+			<Container>
+				<TabsWrapper>
+					{TABS.map(renderTab)}
+				</TabsWrapper>
+				<Content>
+					{renderContent()}
+				</Content>
+			</Container>
+		</Wrapper>
+	);
+
+	function renderTab({ id, text }) {
+		const isActive = id === selectedTab;
+		
+		return (
+			<Tab
+				onClick={() => setSelectedTab(id)}
+				key={`tab-${id}`}
+				{...{ isActive }}
+			>
+				{text}
+			</Tab>
+		);
+	}
+
+	function renderContent() {
+		if (isError) {
+			return (
+				<Message>
+					Something went wrong!<br />Please try again later.
+				</Message>
+			);
+		}
+
+		if (isLoading) {
+			return (
+				<LoaderImage
+					src={loaderImage}
+					alt="loading"
+				/>
+			);
+		}
+
+		if (!billsList.length) {
+			return (
+				<Message>
+					There are no bills to show.
+				</Message>
+			);
+		}
+
+		return billsList.map(renderBill);
+	}
+
+	function renderBill(data) {
+		return (
+			<Bill
+				key={data.id}
+				{...data}
+			/>
+		);
+	}
+};
+
+export default TabsComponent;
