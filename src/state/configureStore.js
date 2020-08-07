@@ -5,15 +5,15 @@ import rootReducer from './reducers';
 import rootSaga from './sagas';
 
 export const configureStore = (initialState = {}) => {
-    const sagaMiddleware = createSagaMiddleware();
+	const sagaMiddleware = createSagaMiddleware();
 
-    const store = createStore(
-        rootReducer,
-        initialState,
-        applyMiddleware(sagaMiddleware)
-    );
+	const store = createStore(
+		rootReducer,
+		initialState,
+		applyMiddleware(sagaMiddleware)
+	);
 
-    store.sagaTask = sagaMiddleware.run(rootSaga);
+	store.sagaTask = sagaMiddleware.run(rootSaga);
 
-    return store;
+	return store;
 };

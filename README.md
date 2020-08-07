@@ -16,10 +16,8 @@
 1. After each action, the lists should reflect the changes.
 
 ### Notes
-- Please aim to spend 2-3 hours completing this task
-- We'd like to see state management tools being used
-- Tools we use at Cleo include styled-components, Typescript and Redux (with Sagas)
-- Style the components however you see fit. SASS or PostCSS are fine, but we'd prefer CSS in JS
-- We love tests, linted code and great looking UIs
-- The API contains other data, feel free to use this creatively if you have the time
-- Remember to check your project runs before submitting
+- I wanted to get this project as polished as possible so I spend about 6 hours working on it.
+- I've created a clean UI using the given data. The layout is responsive and I've added a couple of little improvements like animations and sticky tabs.
+- The state folder structure is probably a bit "overkill" for this project but I wanted to show how I like to organize it and leave it ready for scalability.
+- Added some basic eslint to the project for some things I like to validate, I would add some more if I kept working on this project.
+- There were a couple of improvements I wanted to include like optional chaining and path alias but I was having some issues adding babel to the project and decided it wasn't worth spend any more time on it.
