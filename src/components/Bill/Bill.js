@@ -1,5 +1,6 @@
 
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
@@ -17,6 +18,9 @@ import {
 	TransactionsWrapper,
 	Transaction,
 	Button,
+	NameText,
+	TransactionsText,
+	Amount,
 } from './Bill.styles';
 
 const Bill = ({
@@ -52,8 +56,8 @@ const Bill = ({
 					alt={categoryName}
 				/>
 				<TextWrapper>
-					<div>{name}</div>
-					<div>{transactions.length} transactions</div>
+					<NameText>{name}</NameText>
+					<TransactionsText>{transactions.length} transactions</TransactionsText>
 				</TextWrapper>
 				<Chevron {...{ isOpen }}>▼</Chevron>
 			</BillWrapper>
@@ -80,7 +84,7 @@ const Bill = ({
 		return (
 			<Transaction key={id}>
 				<div>{dateString}</div>
-				<div>{amount}€</div>
+				<Amount>{amount}€</Amount>
 			</Transaction>
 		);
 	}
@@ -92,6 +96,18 @@ const Bill = ({
 	function handleUpdateBill() {
 		dispatch(billsActions.updateBillRequest({ id }));
 	}
+};
+
+Bill.propTypes = {
+	name: PropTypes.string.isRequired,
+	transactions: PropTypes.arrayOf(PropTypes.shape({
+		amount: PropTypes.number.isRequired,
+		date: PropTypes.string.isRequired,
+		id: PropTypes.number.isRequired,
+	})).isRequired,
+	categoryId: PropTypes.number.isRequired,
+	id: PropTypes.string.isRequired,
+	isBill: PropTypes.bool.isRequired,
 };
 
 export default Bill;

@@ -15,8 +15,6 @@ export const BillWrapper = styled.div`
     cursor: pointer;
     background-color: white;
     border-bottom: 1px solid ${StyleConstants.colors.G10};
-    position: relative;
-    z-index: 1;
 `;
 
 export const CategoryImage = styled.img`
@@ -29,6 +27,14 @@ export const TextWrapper = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
+`;
+
+export const NameText = styled.div`
+    font-weight: 700;
+`;
+
+export const TransactionsText = styled.div`
+    font-size: 12px;
 `;
 
 export const Chevron = styled.div`
@@ -47,6 +53,7 @@ export const TransactionsWrapper = styled.div`
     opacity: ${({ isOpen }) => isOpen ? 1 : 0};
     transition: 200ms;
     background-color: ${StyleConstants.colors.G10};
+    overflow: hidden;
 `;
 
 export const Transaction = styled.div`
@@ -56,6 +63,10 @@ export const Transaction = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+`;
+
+export const Amount = styled.div`
+    font-weight: 700;
 `;
 
 export const Button = styled.div`

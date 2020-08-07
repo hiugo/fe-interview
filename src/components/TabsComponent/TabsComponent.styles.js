@@ -20,6 +20,10 @@ export const TabsWrapper = styled.div`
     align-items: flex-start;
     justify-content: space-between;
     padding: 24px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
 `;
 
 export const Tab = styled.div`

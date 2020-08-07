@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '../../../state/configureStore';
 
 // Components
-import TabsComponent from '../';
+import TabsComponent from '..';
 
 const store = configureStore();
 
@@ -25,7 +25,7 @@ const PROPS = {
 		},
 	],
 	categoryId: 21,
-	id: 1,
+	id: '5a5cab88fe33900100fd8eda',
 	isBill: true,
 };
 
