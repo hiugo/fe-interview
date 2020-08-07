@@ -44,7 +44,9 @@ const Bill = ({
 	
 	return (
 		<Wrapper data-testid="bill">
-			<BillWrapper onClick={toggleTransactions}>
+			<BillWrapper
+				onClick={toggleTransactions}
+				data-testid="billwrapper">
 				<CategoryImage
 					src={categoryImage}
 					alt={categoryName}
@@ -56,6 +58,7 @@ const Bill = ({
 				<Chevron {...{ isOpen }}>▼</Chevron>
 			</BillWrapper>
 			<TransactionsWrapper
+				data-testid="transactionswrapper"
 				ref={transactionsRef}
 				height={isOpen ? transactionsHeight : 0}
 				{...{ isOpen }}
@@ -76,8 +79,8 @@ const Bill = ({
 
 		return (
 			<Transaction key={id}>
-				<div>{amount}€</div>
 				<div>{dateString}</div>
+				<div>{amount}€</div>
 			</Transaction>
 		);
 	}
