@@ -23,6 +23,8 @@ import {
 	Content,
 	LoaderImage,
 	Message,
+	Details,
+	DetailsItem,
 } from './TabsComponent.styles';
 
 const TABS = [
@@ -47,12 +49,39 @@ const TabsComponent = () => {
 		selectedTab === 0 ? bill.isBill : !bill.isBill
 	);
 
+	let topSpend = 0;
+	let totalSpend = 0;
+	let totalTransactions = 0;
+
+	billsList.map(bill => (
+		bill.transactions.map(transaction => {
+			if (transaction.amount > topSpend) {
+				topSpend = transaction.amount;
+			}
+			totalSpend += transaction.amount;
+			totalTransactions++;
+		})
+	));
+
+	const averageSpend = totalSpend / totalTransactions;
+
 	return (
 		<Wrapper data-testid="tabscomponent">
 			<Container>
 				<TabsWrapper>
 					{TABS.map(renderTab)}
 				</TabsWrapper>
+				<Details>
+					<DetailsItem>
+						<span>Total transactions:</span> {totalTransactions}
+					</DetailsItem>
+					<DetailsItem>
+						<span>Top spend:</span> {topSpend}€
+					</DetailsItem>
+					<DetailsItem>
+						<span>Average spend:</span> {averageSpend.toFixed(2)}€
+					</DetailsItem>
+				</Details>
 				<Content>
 					{renderContent()}
 				</Content>

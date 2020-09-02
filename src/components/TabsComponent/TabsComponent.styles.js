@@ -75,3 +75,17 @@ export const Message = styled.div`
     text-align: center;
     font-size: 18px;
 `;
+
+export const Details = styled.div`
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+`;
+
+export const DetailsItem = styled.div`
+    margin-bottom: 0.8rem;
+    
+    span {
+        font-weight: 700;
+    }
+`;
