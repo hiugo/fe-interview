@@ -41,9 +41,11 @@ const TabsComponent = () => {
 	const [selectedTab, setSelectedTab] = useState(0);
 
 	useEffect(() => {
-		dispatch(billsActions.billsRequest());
-		dispatch(categoriesActions.categoriesRequest());
-	}, []);
+		if (dispatch) {
+			dispatch(billsActions.billsRequest());
+			dispatch(categoriesActions.categoriesRequest());
+		}
+	}, [dispatch]);
 
 	const billsList = billsData && billsData.filter(bill =>
 		selectedTab === 0 ? bill.isBill : !bill.isBill
