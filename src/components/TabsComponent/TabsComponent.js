@@ -55,15 +55,15 @@ const TabsComponent = () => {
 	let totalSpend = 0;
 	let totalTransactions = 0;
 
-	billsList.map(bill => (
-		bill.transactions.map(transaction => {
+	billsList.forEach(bill => {
+		bill.transactions.forEach(transaction => {
 			if (transaction.amount > topSpend) {
 				topSpend = transaction.amount;
 			}
 			totalSpend += transaction.amount;
 			totalTransactions++;
-		})
-	));
+		});
+	});
 
 	const averageSpend = totalSpend / totalTransactions;
 
